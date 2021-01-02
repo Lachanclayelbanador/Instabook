@@ -16,10 +16,14 @@ class CreatePhotoUserTable extends Migration
         Schema::create('photo_user', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId("photo_id")->constrained()->onDelete('cascade');
-            $table->foreignId("user_id")->constrained()->onDelete('cascade');
-
+            $table->unsignedBigInteger('photo_id');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
+
+            $table->unique(['photo_id','user_id']);
+            $table->foreign('photo_id')->references('id')->on('photos')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->engine = "InnoDB";
         });
     }
 

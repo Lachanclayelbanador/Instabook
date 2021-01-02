@@ -15,11 +15,16 @@ class CreatePhotoTagTable extends Migration
     {
         Schema::create('photo_tag', function (Blueprint $table) {
             $table->id();
-
-            $table->foreignId("photo_id")->constrained()->onDelete('cascade');
-            $table->foreignId("tag_id")->constrained()->onDelete('cascade');
-
+            $table->unsignedBigInteger('photo_id');
+            $table->unsignedBigInteger('tag_id');
             $table->timestamps();
+            $table->unique(['photo_id','tag_id']);
+
+
+            $table->foreign('photo_id')->references('id')->on('photos')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('tag_id')->references('id')->on('tags')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->engine = "InnoDB";
+
         });
     }
 

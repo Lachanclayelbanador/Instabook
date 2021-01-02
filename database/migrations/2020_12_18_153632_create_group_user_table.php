@@ -16,10 +16,15 @@ class CreateGroupUserTable extends Migration
         Schema::create('group_user', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId("group_id")->constrained()->onDelete('cascade');
-            $table->foreignId("user_id")->constrained()->onDelete('cascade');
-
+            $table->unsignedBigInteger('group_id');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
+
+            $table->unique(['group_id','user_id']);
+            $table->foreign('group_id')->references('id')->on('groups')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
+
+            $table->engine = "InnoDB";
         });
     }
 

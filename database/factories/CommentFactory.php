@@ -25,9 +25,9 @@ class CommentFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'photo_id' => Photo::factory(),
+            'photo_id' => Photo::factory(), 
             'text' => $this->faker->text,
-            'comment_id' => Comment::factory(),
+            'comment_id' => null,
             'created_at' => now(),
             'updated_at' => now(),
         ];

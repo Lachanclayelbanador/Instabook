@@ -9,4 +9,7 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 class PhotoTag extends Pivot
 {
     use HasFactory;
+
+
+
 }

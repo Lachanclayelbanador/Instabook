@@ -25,10 +25,16 @@ class CreatePhotosTable extends Migration
             $table->string("width")->nullable();
             $table->string("height")->nullable();
 
-            $table->foreignId("group_id")->constrained()->onDelete('cascade');
-            $table->foreignId("user_id")->constrained()->onDelete('cascade');
+
+            $table->bigInteger('group_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('group_id')->references('id')->on('groups')->onDelete('cascade')->onUpdate('cascade');
+
 
             $table->timestamps();
+
+            $table->engine = "InnoDB";
         });
     }
 

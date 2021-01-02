@@ -17,10 +17,16 @@ class CreateCommentsTable extends Migration
             $table->id();
             $table->string("text");
 
-            $table->foreignId("comment_id")->constrained()->onDelete('cascade');
-            $table->foreignId("photo_id")->constrained()->onDelete('cascade');
-            $table->foreignId("user_id")->constrained()->onDelete('cascade');
+            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('photo_id')->unsigned();
+            $table->bigInteger('comment_id')->unsigned()->nullable();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('photo_id')->references('id')->on('photos')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('comment_id')->references('id')->on('comments')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
+
+            $table->engine = "InnoDB";
         });
     }
 
