@@ -8,15 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Comment extends Model
 {
     use HasFactory;
-
-
+    
     protected static function booted()
     {
         /**
-         * Met en pause la création du model, vérifie que l'utilisateur est dans le meme groupe que la photo pour commenter
-         *
-         * @param Illuminate\Database\Eloquent\Model;
-         * @return boolean;
+         * Permet de passer le test E, vérifier que l'utilisateur est dans le meme groupe que la photo pour commenter cette photo
          */
         static::creating(function($comment){
             if(!GroupUser::where('user_id', $comment->user->id)

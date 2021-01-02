@@ -12,10 +12,7 @@ class Photo extends Model
     protected static function booted()
     {
         /**
-         * Met en pause la création du model, vérifie que l'utilisateur est dans le groupe pour creer la photo dans ce meme groupe
-         *
-         * @param Illuminate\Database\Eloquent\Model;
-         * @return boolean;
+         * Permet de passer le test E, vérifier que l'utilisateur appartient au groupe dans lequel il veut poster la photo
          */
         static::creating(function($photo){
             if(!GroupUser::where('user_id', $photo->owner->id)

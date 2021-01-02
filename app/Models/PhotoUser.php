@@ -12,10 +12,8 @@ class PhotoUser extends Pivot
     protected static function booted()
     {
         /**
-         * Met en pause la création du model, vérifie que l'utilisateur est dans le meme groupe que la photo pour commenter
-         *
-         * @param Illuminate\Database\Eloquent\Model;
-         * @return boolean;
+         * Permet de passer le test E, vérifier que l'utilisateur appartient au groupe dans lequel se trouve la photo pour commenter, c'est la relation
+         * liée à celle du modele Comment.php
          */
         static::creating(function($photoUser){
             $photo = Photo::where('id', $photoUser->photo_id)->first();
